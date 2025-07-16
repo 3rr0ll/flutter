@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'app_colors.dart';
 
 class MessageCenter extends StatefulWidget {
   const MessageCenter({super.key});
@@ -23,7 +24,11 @@ class _MessageCenterState extends State<MessageCenter> {
           'text': 'Your application is under review.',
           'time': '10:15 AM',
         },
-        {'from': 'user', 'text': 'Thank you!', 'time': '10:16 AM'},
+        {
+          'from': 'user',
+          'text': 'Thank you!',
+          'time': '10:16 AM',
+        },
       ],
     },
     {
@@ -37,18 +42,21 @@ class _MessageCenterState extends State<MessageCenter> {
           'text': 'Please upload your OR/CR.',
           'time': 'Yesterday',
         },
-        {'from': 'user', 'text': 'Will do, thanks!', 'time': 'Yesterday'},
+        {
+          'from': 'user',
+          'text': 'Will do, thanks!',
+          'time': 'Yesterday',
+        },
       ],
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    final themeColor = const Color(0xFF5B2C6F);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Message Center'),
-        backgroundColor: themeColor,
+        backgroundColor: AppColors.primary,
         actions: [
           IconButton(
             icon: const Icon(Icons.create),
@@ -69,40 +77,24 @@ class _MessageCenterState extends State<MessageCenter> {
           final c = conversations[i];
           return ListTile(
             leading: CircleAvatar(
-              backgroundColor: themeColor.withOpacity(0.15),
-              child: const Icon(Icons.account_circle, color: Color(0xFF5B2C6F)),
+              backgroundColor: AppColors.primary.withOpacity(0.15),
+              child: const Icon(Icons.account_circle, color: AppColors.primary),
             ),
-            title: Text(
-              c['name'],
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            ),
-            subtitle: Text(
-              c['lastMessage'],
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+            title: Text(c['name'], style: const TextStyle(fontWeight: FontWeight.w600)),
+            subtitle: Text(c['lastMessage'], maxLines: 1, overflow: TextOverflow.ellipsis),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  c['time'],
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
-                ),
+                Text(c['time'], style: const TextStyle(fontSize: 12, color: Colors.grey)),
                 if (c['unread'] > 0)
                   Container(
                     margin: const EdgeInsets.only(top: 4),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Text(
-                      '${c['unread']}',
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
-                    ),
+                    child: Text('${c['unread']}', style: const TextStyle(color: Colors.white, fontSize: 12)),
                   ),
               ],
             ),
@@ -127,11 +119,7 @@ class _MessageCenterState extends State<MessageCenter> {
 class ChatScreen extends StatefulWidget {
   final String officerName;
   final List<Map<String, String>> messages;
-  const ChatScreen({
-    super.key,
-    required this.officerName,
-    required this.messages,
-  });
+  const ChatScreen({super.key, required this.officerName, required this.messages});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -151,35 +139,25 @@ class _ChatScreenState extends State<ChatScreen> {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
     setState(() {
-      _messages.add({
-        'from': 'user',
-        'text': text,
-        'time': _formatTime(DateTime.now()),
-      });
+      _messages.add({'from': 'user', 'text': text, 'time': _formatTime(DateTime.now())});
       _controller.clear();
     });
     // Optionally, simulate admin reply after a delay
     Future.delayed(const Duration(seconds: 1), () {
       setState(() {
-        _messages.add({
-          'from': 'admin',
-          'text': 'Received: $text',
-          'time': _formatTime(DateTime.now()),
-        });
+        _messages.add({'from': 'admin', 'text': 'Received: $text', 'time': _formatTime(DateTime.now())});
       });
     });
   }
 
-  String _formatTime(DateTime dt) =>
-      '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
+  String _formatTime(DateTime dt) => '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
 
   @override
   Widget build(BuildContext context) {
-    final themeColor = const Color(0xFF5B2C6F);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.officerName),
-        backgroundColor: themeColor,
+        backgroundColor: AppColors.primary,
       ),
       body: Column(
         children: [
@@ -192,23 +170,16 @@ class _ChatScreenState extends State<ChatScreen> {
                 final m = _messages[i];
                 final isUser = m['from'] == 'user';
                 return Align(
-                  alignment: isUser
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
+                  alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Column(
-                      crossAxisAlignment: isUser
-                          ? CrossAxisAlignment.end
-                          : CrossAxisAlignment.start,
+                      crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 10,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                           decoration: BoxDecoration(
-                            color: isUser ? themeColor : Colors.grey[200],
+                            color: isUser ? AppColors.primary : Colors.grey[200],
                             borderRadius: BorderRadius.only(
                               topLeft: const Radius.circular(16),
                               topRight: const Radius.circular(16),
@@ -225,13 +196,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                         const SizedBox(height: 2),
-                        Text(
-                          m['time'] ?? '',
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey,
-                          ),
-                        ),
+                        Text(m['time'] ?? '', style: const TextStyle(fontSize: 11, color: Colors.grey)),
                       ],
                     ),
                   ),
@@ -260,17 +225,14 @@ class _ChatScreenState extends State<ChatScreen> {
                       hintText: 'Type a message...',
                       border: OutlineInputBorder(),
                       isDense: true,
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     ),
                     minLines: 1,
                     maxLines: 3,
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.send, color: Color(0xFF5B2C6F)),
+                  icon: const Icon(Icons.send, color: AppColors.primary),
                   onPressed: _sendMessage,
                 ),
               ],
@@ -280,4 +242,4 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
-}
+} 

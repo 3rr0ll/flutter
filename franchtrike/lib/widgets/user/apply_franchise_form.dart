@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'user_dashboard.dart';
+import 'app_colors.dart';
 
 class ApplyFranchiseForm extends StatefulWidget {
   const ApplyFranchiseForm({super.key});
@@ -100,11 +101,10 @@ class _ApplyFranchiseFormState extends State<ApplyFranchiseForm>
 
   @override
   Widget build(BuildContext context) {
-    final themeColor = const Color(0xFF5B2C6F);
     return Scaffold(
       appBar: AppBar(
         title: const Text('New Franchise Application'),
-        backgroundColor: themeColor,
+        backgroundColor: AppColors.primary,
         leading: BackButton(color: Colors.white),
       ),
       body: SingleChildScrollView(
@@ -200,7 +200,7 @@ class _ApplyFranchiseFormState extends State<ApplyFranchiseForm>
                         children: [
                           ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: themeColor,
+                              backgroundColor: AppColors.primary,
                             ),
                             onPressed: () => _pickFile(true),
                             icon: const Icon(Icons.upload_file),
@@ -220,7 +220,7 @@ class _ApplyFranchiseFormState extends State<ApplyFranchiseForm>
                         children: [
                           ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: themeColor,
+                              backgroundColor: AppColors.primary,
                             ),
                             onPressed: () => _pickFile(false),
                             icon: const Icon(Icons.upload_file),
@@ -245,7 +245,7 @@ class _ApplyFranchiseFormState extends State<ApplyFranchiseForm>
                   Checkbox(
                     value: _agreed,
                     onChanged: (v) => setState(() => _agreed = v ?? false),
-                    activeColor: themeColor,
+                    activeColor: AppColors.primary,
                   ),
                   const Expanded(
                     child: Text(
@@ -268,7 +268,7 @@ class _ApplyFranchiseFormState extends State<ApplyFranchiseForm>
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: themeColor,
+                      backgroundColor: AppColors.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),

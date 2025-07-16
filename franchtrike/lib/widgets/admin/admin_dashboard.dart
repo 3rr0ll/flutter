@@ -6,6 +6,7 @@ import 'application_details.dart';
 import 'franchise_tracker.dart';
 import 'admin_notifications.dart';
 import 'admin_messages.dart';
+import 'data_access_management.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({super.key});
@@ -154,6 +155,27 @@ class _AdminDashboardState extends State<AdminDashboard> {
             ),
             const SizedBox(height: 18),
             
+            // Data & Access Management Button
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.verified_user),
+                  label: const Text('Data & Access Management'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueGrey,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const DataAccessManagement()),
+                    );
+                  },
+                ),
+              ),
+            ),
             // Franchise Tracker Button
             Padding(
               padding: const EdgeInsets.only(bottom: 12),

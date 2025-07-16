@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app_colors.dart';
 
 class ViewApplicationStatus extends StatefulWidget {
   const ViewApplicationStatus({super.key});
@@ -26,15 +27,15 @@ class _ViewApplicationStatusState extends State<ViewApplicationStatus> {
   Color _statusColor(String status) {
     switch (status) {
       case 'Approved':
-        return Colors.green;
+        return AppColors.success;
       case 'Rejected':
-        return Colors.red;
+        return AppColors.error;
       case 'Under Review':
-        return Colors.amber;
+        return AppColors.warning;
       case 'Submitted':
-        return Colors.blue;
+        return AppColors.primary;
       default:
-        return Colors.grey;
+        return AppColors.textSecondary;
     }
   }
 
@@ -70,11 +71,10 @@ class _ViewApplicationStatusState extends State<ViewApplicationStatus> {
 
   @override
   Widget build(BuildContext context) {
-    final themeColor = const Color(0xFF5B2C6F);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Application Status'),
-        backgroundColor: themeColor,
+        backgroundColor: AppColors.primary,
         leading: BackButton(color: Colors.white),
       ),
       body: RefreshIndicator(
@@ -173,7 +173,7 @@ class _ViewApplicationStatusState extends State<ViewApplicationStatus> {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.calendar_today, size: 20, color: Colors.grey),
+                          const Icon(Icons.calendar_today, size: 20, color: AppColors.textSecondary),
                           const SizedBox(width: 8),
                           Text('Submitted: ${submissionDate.month}/${submissionDate.day}/${submissionDate.year}'),
                         ],
@@ -181,7 +181,7 @@ class _ViewApplicationStatusState extends State<ViewApplicationStatus> {
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          const Icon(Icons.confirmation_number, size: 20, color: Colors.grey),
+                          const Icon(Icons.confirmation_number, size: 20, color: AppColors.textSecondary),
                           const SizedBox(width: 8),
                           Text('Application ID: $applicationId'),
                         ],
@@ -189,7 +189,7 @@ class _ViewApplicationStatusState extends State<ViewApplicationStatus> {
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          const Icon(Icons.directions_bike, size: 20, color: Colors.grey),
+                          const Icon(Icons.directions_bike, size: 20, color: AppColors.textSecondary),
                           const SizedBox(width: 8),
                           Text('Franchise Type: $franchiseType'),
                         ],
@@ -202,7 +202,7 @@ class _ViewApplicationStatusState extends State<ViewApplicationStatus> {
               // Rejection Reason
               if (status == 'Rejected')
                 Card(
-                  color: Colors.red[50],
+                  color: AppColors.errorLight,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -211,12 +211,12 @@ class _ViewApplicationStatusState extends State<ViewApplicationStatus> {
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
                       children: [
-                        const Icon(Icons.error, color: Colors.red),
+                        const Icon(Icons.error, color: AppColors.error),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
                             'Reason for rejection: $rejectionReason',
-                            style: const TextStyle(color: Colors.red),
+                            style: const TextStyle(color: AppColors.error),
                           ),
                         ),
                       ],

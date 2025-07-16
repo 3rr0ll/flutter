@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'app_colors.dart';
 
 class MakePayment extends StatefulWidget {
   const MakePayment({super.key});
@@ -56,7 +57,7 @@ class _MakePaymentState extends State<MakePayment> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: BorderSide(
-              color: _selectedMethod == index ? Colors.blue : Colors.grey[300]!,
+              color: _selectedMethod == index ? AppColors.primary : AppColors.border,
               width: 2,
             ),
           ),
@@ -65,9 +66,9 @@ class _MakePaymentState extends State<MakePayment> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(icon, size: 32, color: _selectedMethod == index ? Colors.blue : Colors.grey),
+                Icon(icon, size: 32, color: _selectedMethod == index ? AppColors.primary : AppColors.textSecondary),
                 const SizedBox(height: 8),
-                Text(label, style: TextStyle(fontWeight: FontWeight.w600, color: _selectedMethod == index ? Colors.blue : Colors.black87)),
+                Text(label, style: TextStyle(fontWeight: FontWeight.w600, color: _selectedMethod == index ? AppColors.primary : AppColors.textPrimary)),
               ],
             ),
           ),
@@ -84,9 +85,19 @@ class _MakePaymentState extends State<MakePayment> {
             TextFormField(
               controller: _cardNumberController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Card Number',
-                prefixIcon: Icon(Icons.credit_card),
+                prefixIcon: Icon(Icons.credit_card, color: AppColors.textSecondary),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: AppColors.border),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: AppColors.primary),
+                ),
+                labelStyle: TextStyle(color: AppColors.textSecondary),
+                prefixIconColor: AppColors.textSecondary,
               ),
             ),
             const SizedBox(height: 12),
@@ -96,9 +107,19 @@ class _MakePaymentState extends State<MakePayment> {
                   child: TextFormField(
                     controller: _expController,
                     keyboardType: TextInputType.datetime,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'MM/YY',
-                      prefixIcon: Icon(Icons.date_range),
+                      prefixIcon: Icon(Icons.date_range, color: AppColors.textSecondary),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: AppColors.border),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: AppColors.primary),
+                      ),
+                      labelStyle: TextStyle(color: AppColors.textSecondary),
+                      prefixIconColor: AppColors.textSecondary,
                     ),
                   ),
                 ),
@@ -107,9 +128,19 @@ class _MakePaymentState extends State<MakePayment> {
                   child: TextFormField(
                     controller: _cvvController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'CVV',
-                      prefixIcon: Icon(Icons.lock),
+                      prefixIcon: Icon(Icons.lock, color: AppColors.textSecondary),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: AppColors.border),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: AppColors.primary),
+                      ),
+                      labelStyle: TextStyle(color: AppColors.textSecondary),
+                      prefixIconColor: AppColors.textSecondary,
                     ),
                   ),
                 ),
@@ -120,9 +151,19 @@ class _MakePaymentState extends State<MakePayment> {
       case 2: // Bank Transfer
         return TextFormField(
           controller: _refNoController,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             labelText: 'Reference No.',
-            prefixIcon: Icon(Icons.receipt_long),
+            prefixIcon: Icon(Icons.receipt_long, color: AppColors.textSecondary),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: AppColors.border),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: AppColors.primary),
+            ),
+            labelStyle: TextStyle(color: AppColors.textSecondary),
+            prefixIconColor: AppColors.textSecondary,
           ),
         );
       default:
@@ -132,11 +173,10 @@ class _MakePaymentState extends State<MakePayment> {
 
   @override
   Widget build(BuildContext context) {
-    final themeColor = const Color(0xFF5B2C6F);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Payment'),
-        backgroundColor: themeColor,
+        backgroundColor: AppColors.primary,
         leading: BackButton(color: Colors.white),
       ),
       body: Stack(
@@ -159,33 +199,33 @@ class _MakePaymentState extends State<MakePayment> {
                       children: [
                         Row(
                           children: [
-                            const Icon(Icons.receipt_long, color: Colors.blue),
+                            Icon(Icons.receipt_long, color: AppColors.primary),
                             const SizedBox(width: 8),
-                            Text('Application ID: $applicationId', style: const TextStyle(fontWeight: FontWeight.w600)),
+                            Text('Application ID: $applicationId', style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
                           ],
                         ),
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.directions_bike, color: Colors.purple),
+                            Icon(Icons.directions_bike, color: AppColors.secondary),
                             const SizedBox(width: 8),
-                            Text('Franchise Type: $franchiseType'),
+                            Text('Franchise Type: $franchiseType', style: TextStyle(color: AppColors.textPrimary)),
                           ],
                         ),
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.attach_money, color: Colors.green),
+                            Icon(Icons.attach_money, color: AppColors.success),
                             const SizedBox(width: 8),
-                            Text('Amount Due: ₱${amountDue.toStringAsFixed(2)}'),
+                            Text('Amount Due: ₱${amountDue.toStringAsFixed(2)}', style: TextStyle(color: AppColors.textPrimary)),
                           ],
                         ),
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.calendar_today, color: Colors.amber),
+                            Icon(Icons.calendar_today, color: AppColors.warning),
                             const SizedBox(width: 8),
-                            Text('Due Date: $dueDate'),
+                            Text('Due Date: $dueDate', style: TextStyle(color: AppColors.textPrimary)),
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -193,10 +233,10 @@ class _MakePaymentState extends State<MakePayment> {
                           children: [
                             Icon(
                               status == 'Paid' ? Icons.check_circle : Icons.pending,
-                              color: status == 'Paid' ? Colors.green : Colors.orange,
+                              color: status == 'Paid' ? AppColors.success : AppColors.warning,
                             ),
                             const SizedBox(width: 8),
-                            Text('Status: $status'),
+                            Text('Status: $status', style: TextStyle(color: AppColors.textPrimary)),
                           ],
                         ),
                       ],
@@ -205,7 +245,7 @@ class _MakePaymentState extends State<MakePayment> {
                 ),
                 const SizedBox(height: 20),
                 // Payment Method
-                const Text('Select Payment Method', style: TextStyle(fontWeight: FontWeight.w600)),
+                Text('Select Payment Method', style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
                 const SizedBox(height: 10),
                 Row(
                   children: [
@@ -233,7 +273,7 @@ class _MakePaymentState extends State<MakePayment> {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: themeColor,
+                      backgroundColor: AppColors.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -241,7 +281,7 @@ class _MakePaymentState extends State<MakePayment> {
                     onPressed: _loading || status == 'Paid' ? null : _payNow,
                     child: _loading
                         ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text('Pay Now', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                        : Text('Pay Now', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
                   ),
                 ),
               ],
@@ -272,32 +312,32 @@ class _MakePaymentState extends State<MakePayment> {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: Colors.green[100],
+                    color: AppColors.successLight,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.check_circle, color: Colors.green, size: 64),
+                  child: Icon(Icons.check_circle, color: AppColors.success, size: 64),
                 ),
                 const SizedBox(height: 20),
-                const Text('Payment Successful!', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                Text('Payment Successful!', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                 const SizedBox(height: 10),
-                Text('Transaction ID: $_transactionId', style: const TextStyle(fontSize: 16)),
+                Text('Transaction ID: $_transactionId', style: TextStyle(fontSize: 16, color: AppColors.textSecondary)),
                 const SizedBox(height: 20),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: AppColors.secondary,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   onPressed: () {
                     // Mock download
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Receipt downloaded (mock)')));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Receipt downloaded (mock)', style: TextStyle(color: AppColors.textPrimary))));
                   },
-                  icon: const Icon(Icons.download),
-                  label: const Text('Download Receipt'),
+                  icon: Icon(Icons.download, color: Colors.white),
+                  label: Text('Download Receipt', style: TextStyle(color: Colors.white)),
                 ),
                 const SizedBox(height: 10),
                 TextButton(
                   onPressed: () => setState(() => _showSuccess = false),
-                  child: const Text('Close'),
+                  child: Text('Close', style: TextStyle(color: AppColors.primary)),
                 ),
               ],
             ),

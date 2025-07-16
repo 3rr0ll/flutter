@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'notification_settings.dart';
+import 'app_colors.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -96,26 +97,26 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Color _colorForType(String type) {
     switch (type) {
       case 'alert':
-        return Colors.redAccent;
+        return AppColors.red;
       case 'reminder':
-        return Colors.amber;
+        return AppColors.amber;
       case 'update':
-        return Colors.blueAccent;
+        return AppColors.blue;
       case 'approval':
-        return Colors.green;
+        return AppColors.green;
       default:
-        return Colors.grey;
+        return AppColors.grey;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final themeColor = const Color(0xFF5B2C6F);
+    final themeColor = AppColors.primary;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notifications'),
         backgroundColor: themeColor,
-        leading: BackButton(color: Colors.white),
+        leading: BackButton(color: AppColors.white),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -168,8 +169,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   background: Container(
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.symmetric(horizontal: 24),
-                    color: Colors.green,
-                    child: const Icon(Icons.done, color: Colors.white, size: 32),
+                    color: AppColors.green,
+                    child: const Icon(Icons.done, color: AppColors.white, size: 32),
                   ),
                   child: GestureDetector(
                     onLongPress: () => markAsRead(originalIndex),
@@ -178,11 +179,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       curve: Curves.easeInOut,
                       margin: const EdgeInsets.symmetric(vertical: 6),
                       decoration: BoxDecoration(
-                        color: n['read'] ? Colors.white : Colors.blue[50],
+                        color: n['read'] ? AppColors.white : AppColors.blue.withOpacity(0.08),
                         borderRadius: BorderRadius.circular(14),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black12,
+                            color: AppColors.black12,
                             blurRadius: 6,
                             offset: const Offset(0, 2),
                           ),
@@ -203,9 +204,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                   width: 12,
                                   height: 12,
                                   decoration: BoxDecoration(
-                                    color: Colors.red,
+                                    color: AppColors.red,
                                     shape: BoxShape.circle,
-                                    border: Border.all(color: Colors.white, width: 2),
+                                    border: Border.all(color: AppColors.white, width: 2),
                                   ),
                                 ),
                               ),
@@ -218,7 +219,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           children: [
                             Text(
                               _formatDate(n['date']),
-                              style: const TextStyle(fontSize: 12, color: Colors.grey),
+                              style: const TextStyle(fontSize: 12, color: AppColors.grey),
                             ),
                           ],
                         ),
@@ -242,9 +243,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         label: Text(label),
         selected: selected,
         onSelected: (_) => setState(() => filter = value),
-        selectedColor: const Color(0xFF5B2C6F),
-        labelStyle: TextStyle(color: selected ? Colors.white : Colors.black87),
-        backgroundColor: Colors.grey[200],
+        selectedColor: AppColors.primary,
+        labelStyle: TextStyle(color: selected ? AppColors.white : Colors.black87),
+        backgroundColor: Colors.grey.shade200,
       ),
     );
   }

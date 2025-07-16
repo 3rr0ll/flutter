@@ -8,6 +8,9 @@ import 'view_application_status.dart';
 import 'make_payment.dart';
 import 'notifications.dart';
 import 'message_center.dart';
+import 'user_profile_screen.dart'; // Added import for UserProfileScreen
+import 'app_colors.dart';
+import 'renewal_screen.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -52,13 +55,13 @@ class _UserDashboardState extends State<UserDashboard>
   Color _statusColor(String status) {
     switch (status) {
       case 'Approved':
-        return Colors.green;
+        return AppColors.success;
       case 'Pending':
-        return Colors.amber;
+        return AppColors.warning;
       case 'Rejected':
-        return Colors.red;
+        return AppColors.danger;
       default:
-        return Colors.grey;
+        return AppColors.gray;
     }
   }
 
@@ -77,10 +80,9 @@ class _UserDashboardState extends State<UserDashboard>
 
   @override
   Widget build(BuildContext context) {
-    final themeColor = const Color(0xFF5B2C6F); // purple-blue
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: themeColor,
+        backgroundColor: AppColors.primaryNavy,
         title: Text('Welcome, $userName'),
         actions: [
           IconButton(
@@ -90,6 +92,16 @@ class _UserDashboardState extends State<UserDashboard>
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const NotificationsScreen()),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.account_circle),
+            tooltip: 'Profile',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const UserProfileScreen()),
               );
             },
           ),
@@ -151,7 +163,7 @@ class _UserDashboardState extends State<UserDashboard>
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
                       children: [
-                        const Icon(Icons.calendar_today, color: Colors.blue, size: 36),
+                        const Icon(Icons.calendar_today, color: AppColors.primaryNavy, size: 36),
                         const SizedBox(width: 16),
                         Expanded(
                           child: Column(
@@ -177,14 +189,15 @@ class _UserDashboardState extends State<UserDashboard>
                         if (canRenew)
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: themeColor,
+                              backgroundColor: AppColors.primaryNavy,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
                             onPressed: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Renewal process started!')),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const RenewalScreen()),
                               );
                             },
                             child: const Text('Renew Now'),
@@ -211,7 +224,7 @@ class _UserDashboardState extends State<UserDashboard>
                     _quickActionCard(
                       icon: Icons.add_business,
                       label: 'Apply for New Franchise',
-                      color: Colors.blue[700]!,
+                      color: AppColors.accentPurple,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -222,7 +235,7 @@ class _UserDashboardState extends State<UserDashboard>
                     _quickActionCard(
                       icon: Icons.folder_shared,
                       label: 'View My Applications',
-                      color: Colors.purple[700]!,
+                      color: AppColors.primaryNavy,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -233,7 +246,7 @@ class _UserDashboardState extends State<UserDashboard>
                     _quickActionCard(
                       icon: Icons.payment,
                       label: 'Make a Payment',
-                      color: Colors.teal[700]!,
+                      color: AppColors.accentGreen,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -244,7 +257,7 @@ class _UserDashboardState extends State<UserDashboard>
                     _quickActionCard(
                       icon: Icons.help_outline,
                       label: 'Ask a Question',
-                      color: Colors.orange[700]!,
+                      color: AppColors.warning,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -261,8 +274,8 @@ class _UserDashboardState extends State<UserDashboard>
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
-        selectedItemColor: themeColor,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: AppColors.primaryNavy,
+        unselectedItemColor: AppColors.gray,
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(

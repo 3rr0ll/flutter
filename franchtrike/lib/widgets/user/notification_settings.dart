@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'app_colors.dart';
 
 class NotificationSettings extends StatefulWidget {
   const NotificationSettings({super.key});
@@ -59,13 +60,13 @@ class _NotificationSettingsState extends State<NotificationSettings> {
   Color _colorForType(String type) {
     switch (type) {
       case 'approval':
-        return Colors.green;
+        return AppColors.success;
       case 'payment':
-        return Colors.blueAccent;
+        return AppColors.primary;
       case 'reminder':
-        return Colors.amber;
+        return AppColors.warning;
       default:
-        return Colors.grey;
+        return AppColors.textSecondary;
     }
   }
 
@@ -80,7 +81,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
 
   @override
   Widget build(BuildContext context) {
-    final themeColor = const Color(0xFF5B2C6F);
+    final themeColor = AppColors.primary;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notification Settings'),
@@ -111,10 +112,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Notification History',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
+              const Text('Notification History', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               TextButton.icon(
                 onPressed: markAllAsRead,
                 icon: const Icon(Icons.done_all),
@@ -137,13 +135,8 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                     leading: Stack(
                       children: [
                         CircleAvatar(
-                          backgroundColor: _colorForType(
-                            n['type'],
-                          ).withOpacity(0.15),
-                          child: Icon(
-                            _iconForType(n['type']),
-                            color: _colorForType(n['type']),
-                          ),
+                          backgroundColor: _colorForType(n['type']).withOpacity(0.15),
+                          child: Icon(_iconForType(n['type']), color: _colorForType(n['type'])),
                         ),
                         if (!n['read'])
                           Positioned(
@@ -153,33 +146,19 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                               width: 10,
                               height: 10,
                               decoration: BoxDecoration(
-                                color: Colors.red,
+                                color: AppColors.danger,
                                 shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
+                                border: Border.all(color: AppColors.white, width: 2),
                               ),
                             ),
                           ),
                       ],
                     ),
-                    title: Text(
-                      n['title'],
-                      style: TextStyle(
-                        fontWeight: n['read']
-                            ? FontWeight.normal
-                            : FontWeight.bold,
-                      ),
-                    ),
+                    title: Text(n['title'], style: TextStyle(fontWeight: n['read'] ? FontWeight.normal : FontWeight.bold)),
                     subtitle: Text(_formatDate(n['time'])),
                     trailing: n['read']
-                        ? const Icon(Icons.done, color: Colors.green, size: 18)
-                        : const Icon(
-                            Icons.fiber_manual_record,
-                            color: Colors.red,
-                            size: 18,
-                          ),
+                        ? const Icon(Icons.done, color: AppColors.success, size: 18)
+                        : const Icon(Icons.fiber_manual_record, color: AppColors.danger, size: 18),
                   ),
                 ),
               );
@@ -189,4 +168,4 @@ class _NotificationSettingsState extends State<NotificationSettings> {
       ),
     );
   }
-}
+} 
