@@ -50,7 +50,7 @@ class _RenewalScreenState extends State<RenewalScreen> {
           ElevatedButton(
             onPressed: () => Navigator.pop(ctx, true),
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryNavy),
-            child: const Text('Confirm'),
+            child: const Text('Confirm', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -93,7 +93,7 @@ class _RenewalScreenState extends State<RenewalScreen> {
           trailing: ElevatedButton(
             onPressed: _pickFile,
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryNavy),
-            child: const Text('Upload'),
+            child: const Text('Upload',style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
@@ -145,8 +145,9 @@ class _RenewalScreenState extends State<RenewalScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Franchise Renewal'),
+        title: const Text('Franchise Renewal',style: TextStyle(color: Colors.white)),
         backgroundColor: AppColors.primaryNavy,
+        leading: BackButton(color: Colors.white),
       ),
       body: _submitting
           ? const Center(child: CircularProgressIndicator())
@@ -172,6 +173,7 @@ class _RenewalScreenState extends State<RenewalScreen> {
                     },
                     controlsBuilder: (context, details) {
                       final isLast = _currentStep == _buildSteps().length - 1;
+                      final isUploadStep = _currentStep == 1;
                       return Row(
                         children: [
                           if (_currentStep > 0)
@@ -180,17 +182,20 @@ class _RenewalScreenState extends State<RenewalScreen> {
                               child: const Text('Back'),
                             ),
                           const SizedBox(width: 12),
-                          ElevatedButton(
-                            onPressed: isLast
-                                ? (_agreed ? _submit : null)
-                                : details.onStepContinue,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryNavy,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                          Container(
+                            margin: const EdgeInsets.only(top: 5),
+                            child: ElevatedButton(
+                              onPressed: isLast
+                                  ? (_agreed ? _submit : null)
+                                  : (isUploadStep && _uploadedFileName == null ? null : details.onStepContinue),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.primaryNavy,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
+                              child: Text(isLast ? 'Submit Renewal' : 'Next',style: TextStyle(color: Colors.white)),
                             ),
-                            child: Text(isLast ? 'Submit Renewal' : 'Next'),
                           ),
                         ],
                       );

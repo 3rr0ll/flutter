@@ -114,12 +114,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     final themeColor = AppColors.primary;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notifications'),
+        title: const Text('Notifications' ,style: TextStyle(color: Colors.white)),
         backgroundColor: themeColor,
         leading: BackButton(color: AppColors.white),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(Icons.settings, color: Colors.white),
             tooltip: 'Notification Settings',
             onPressed: () {
               Navigator.push(
@@ -129,7 +129,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.done_all),
+            icon: const Icon(Icons.done_all, color: Colors.white),
             tooltip: 'Mark all as read',
             onPressed: markAllAsRead,
           ),
@@ -137,19 +137,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       ),
       body: Column(
         children: [
-          // Filter bar
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
+          // Filter bar (redesigned for mobile/desktop, always visible)
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: Row(
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              alignment: WrapAlignment.center,
               children: [
-                _filterChip('All', 'all'),
-                _filterChip('Unread', 'unread'),
-                _filterChip('Read', 'read'),
-                _filterChip('Alerts', 'alert'),
-                _filterChip('Reminders', 'reminder'),
-                _filterChip('Updates', 'update'),
-                _filterChip('Approvals', 'approval'),
+                _filterButton('All', 'all', Icons.notifications_none_rounded),
+                _filterButton('Unread', 'unread', Icons.mark_email_unread_rounded),
+                _filterButton('Read', 'read', Icons.mark_email_read_rounded),
+                _filterButton('Alerts', 'alert', Icons.warning_amber_rounded),
+                _filterButton('Reminders', 'reminder', Icons.notifications_active_rounded),
+                _filterButton('Updates', 'update', Icons.info_outline_rounded),
+                _filterButton('Approvals', 'approval', Icons.check_circle_outline),
               ],
             ),
           ),
@@ -235,18 +237,23 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     );
   }
 
-  Widget _filterChip(String label, String value) {
+  Widget _filterButton(String label, String value, IconData icon) {
     final selected = filter == value;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: ChoiceChip(
-        label: Text(label),
-        selected: selected,
-        onSelected: (_) => setState(() => filter = value),
-        selectedColor: AppColors.primary,
-        labelStyle: TextStyle(color: selected ? AppColors.white : Colors.black87),
-        backgroundColor: Colors.grey.shade200,
+    return ElevatedButton.icon(
+      icon: Icon(icon, color: selected ? AppColors.white : AppColors.primary, size: 20),
+      label: Text(label, style: TextStyle(fontWeight: FontWeight.w600, color: selected ? AppColors.white : AppColors.primary)),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: selected ? AppColors.primary : AppColors.white,
+        foregroundColor: AppColors.primary,
+        elevation: selected ? 4 : 1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: selected ? AppColors.primary : AppColors.primary.withOpacity(0.2)),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        shadowColor: AppColors.primary.withOpacity(0.08),
       ),
+      onPressed: () => setState(() => filter = value),
     );
   }
 

@@ -55,11 +55,12 @@ class _MessageCenterState extends State<MessageCenter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Message Center'),
-        backgroundColor: AppColors.primary,
+        title: const Text('Message Center', style: TextStyle(color: Colors.white)),
+        backgroundColor: AppColors.primaryNavy,
+        leading: BackButton(color: Colors.white),
         actions: [
           IconButton(
-            icon: const Icon(Icons.create),
+            icon: const Icon(Icons.create, color: Colors.white,),
             tooltip: 'New Message',
             onPressed: () {
               // Compose new message (mock)
@@ -156,8 +157,9 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.officerName),
-        backgroundColor: AppColors.primary,
+        title: Text(widget.officerName, style: TextStyle(color: Colors.white)),
+        backgroundColor: AppColors.primaryNavy,
+        leading: BackButton(color: Colors.white),
       ),
       body: Column(
         children: [

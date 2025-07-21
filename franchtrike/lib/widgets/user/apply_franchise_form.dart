@@ -103,8 +103,8 @@ class _ApplyFranchiseFormState extends State<ApplyFranchiseForm>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Franchise Application'),
-        backgroundColor: AppColors.primary,
+        title: const Text('New Franchise Application', style: TextStyle(color: Colors.white)),
+        backgroundColor: AppColors.primaryNavy,
         leading: BackButton(color: Colors.white),
       ),
       body: SingleChildScrollView(

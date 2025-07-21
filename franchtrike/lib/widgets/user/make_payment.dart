@@ -175,7 +175,7 @@ class _MakePaymentState extends State<MakePayment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Payment'),
+        title: const Text('Payment', style: TextStyle(color: Colors.white)),
         backgroundColor: AppColors.primary,
         leading: BackButton(color: Colors.white),
       ),

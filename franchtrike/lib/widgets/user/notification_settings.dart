@@ -84,8 +84,9 @@ class _NotificationSettingsState extends State<NotificationSettings> {
     final themeColor = AppColors.primary;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notification Settings'),
+        title: const Text('Notification Settings', style: TextStyle(color: Colors.white)),
         backgroundColor: themeColor,
+         leading: BackButton(color: AppColors.white), 
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),

@@ -1,5 +1,5 @@
 
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unused_import, no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
 import '../login_screen.dart';
@@ -8,9 +8,9 @@ import 'view_application_status.dart';
 import 'make_payment.dart';
 import 'notifications.dart';
 import 'message_center.dart';
-import 'user_profile_screen.dart'; // Added import for UserProfileScreen
 import 'app_colors.dart';
 import 'renewal_screen.dart';
+import 'user_profile_screen.dart'; // Added import for UserProfileScreen
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -83,10 +83,13 @@ class _UserDashboardState extends State<UserDashboard>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryNavy,
-        title: Text('Welcome, $userName'),
+        title: Text(
+          'Welcome, $userName',
+          style: const TextStyle(color: Colors.white),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none),
+            icon: const Icon(Icons.notifications_none, color: Colors.white),
             tooltip: 'Notifications',
             onPressed: () {
               Navigator.push(
@@ -96,17 +99,7 @@ class _UserDashboardState extends State<UserDashboard>
             },
           ),
           IconButton(
-            icon: const Icon(Icons.account_circle),
-            tooltip: 'Profile',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const UserProfileScreen()),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.logout),
+            icon: const Icon(Icons.logout, color: Colors.white),
             tooltip: 'Sign out',
             onPressed: () {
               Navigator.pushReplacement(
@@ -200,7 +193,7 @@ class _UserDashboardState extends State<UserDashboard>
                                 MaterialPageRoute(builder: (_) => const RenewalScreen()),
                               );
                             },
-                            child: const Text('Renew Now'),
+                            child: const Text('Renew Now', style: TextStyle(color: Colors.white)),
                           ),
                       ],
                     ),
@@ -287,8 +280,8 @@ class _UserDashboardState extends State<UserDashboard>
             label: 'Applications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.payment),
-            label: 'Payments',
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.help_outline),
@@ -308,7 +301,7 @@ class _UserDashboardState extends State<UserDashboard>
           } else if (index == 2) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const MakePayment()),
+              MaterialPageRoute(builder: (_) => const UserProfileScreen()),
             );
           } else if (index == 3) {
             Navigator.push(

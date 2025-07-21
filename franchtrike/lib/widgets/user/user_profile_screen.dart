@@ -28,9 +28,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         title: const Text('My Profile'),
         backgroundColor: AppColors.primaryNavy,
         elevation: 0,
-        iconTheme: const IconThemeData(color: AppColors.primaryGold),
+        iconTheme: const IconThemeData(color: Color.fromARGB(255, 255, 255, 255)),
         titleTextStyle: const TextStyle(
-          color: AppColors.primaryGold,
+          color: Color.fromARGB(255, 255, 255, 255),
           fontWeight: FontWeight.bold,
           fontSize: 22,
         ),
@@ -45,7 +45,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.primaryGold, width: 4),
+                  border: Border.all(color: AppColors.primaryNavy, width: 4),
                   boxShadow: [
                     BoxShadow(
                       color: AppColors.primaryNavy.withOpacity(0.08),
@@ -145,17 +145,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                icon: Icon(_isEditing ? Icons.save : Icons.edit, color: AppColors.primaryNavy),
+                icon: Icon(_isEditing ? Icons.save : Icons.edit, color: AppColors.white),
                 label: Text(
                   _isEditing ? 'Save' : 'Edit',
                   style: const TextStyle(
-                    color: AppColors.primaryNavy,
+                    color: AppColors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryGold,
+                  backgroundColor: AppColors.primaryNavy,
                   elevation: 2,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

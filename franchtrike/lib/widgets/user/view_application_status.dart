@@ -10,7 +10,7 @@ class ViewApplicationStatus extends StatefulWidget {
 
 class _ViewApplicationStatusState extends State<ViewApplicationStatus> {
   // Mock data for demonstration
-  String status = 'Under Review'; // Submitted | Under Review | Approved | Rejected
+  String status = 'Approved'; // Submitted | Under Review | Approved | Rejected
   String rejectionReason = 'Incomplete documents';
   String applicationId = 'APP-20240601-001';
   String franchiseType = 'New';
@@ -73,7 +73,7 @@ class _ViewApplicationStatusState extends State<ViewApplicationStatus> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Application Status'),
+        title: const Text('Application Status', style: TextStyle(color: Colors.white)),
         backgroundColor: AppColors.primary,
         leading: BackButton(color: Colors.white),
       ),
@@ -118,45 +118,48 @@ class _ViewApplicationStatusState extends State<ViewApplicationStatus> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Stepper(
-                  currentStep: _currentStep(status),
-                  controlsBuilder: (context, details) => const SizedBox.shrink(),
-                  steps: [
-                    Step(
-                      title: const Text('Submitted'),
-                      content: const SizedBox.shrink(),
-                      isActive: _currentStep(status) >= 0,
-                      state: _currentStep(status) > 0
-                          ? StepState.complete
-                          : StepState.indexed,
-                    ),
-                    Step(
-                      title: const Text('Under Review'),
-                      content: const SizedBox.shrink(),
-                      isActive: _currentStep(status) >= 1,
-                      state: _currentStep(status) > 1
-                          ? StepState.complete
-                          : StepState.indexed,
-                    ),
-                    Step(
-                      title: const Text('Verified'),
-                      content: const SizedBox.shrink(),
-                      isActive: _currentStep(status) >= 2,
-                      state: status == 'Rejected'
-                          ? StepState.error
-                          : _currentStep(status) > 2
-                              ? StepState.complete
-                              : StepState.indexed,
-                    ),
-                    Step(
-                      title: const Text('Completed'),
-                      content: const SizedBox.shrink(),
-                      isActive: _currentStep(status) >= 3,
-                      state: _currentStep(status) == 3
-                          ? StepState.complete
-                          : StepState.indexed,
-                    ),
-                  ],
+                child: Column(
+                  children: List.generate(4, (i) {
+                    final isActive = i <= _currentStep(status);
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Step circle and line
+                        Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 16,
+                              backgroundColor: isActive ? AppColors.accentPurple : AppColors.gray,
+                              child: Text('${i + 1}', style: TextStyle(color: Colors.white)),
+                            ),
+                            if (i < 3) // Only draw line if not the last step
+                              Container(
+                                width: 2,
+                                height: 40, // Adjust to match your spacing
+                                color: isActive ? AppColors.accentPurple : AppColors.gray,
+                              ),
+                          ],
+                        ),
+                        const SizedBox(width: 12),
+                        // Step label
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Text(
+                            [
+                              'Submitted',
+                              'Under Review',
+                              'Verified',
+                              'Completed',
+                            ][i],
+                            style: TextStyle(
+                              color: isActive ? AppColors.accentPurple : AppColors.gray,
+                              fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
                 ),
               ),
               const SizedBox(height: 20),
